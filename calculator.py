@@ -1,10 +1,13 @@
+from cmath import sqrt
 from glob import glob
 from tkinter import*
+from tkinter.tix import COLUMN
+from turtle import clear
 
 from setuptools import Command
 calcbody=Tk()
 calcbody.title("calculator")
-#calcbody.geometry("500x600")
+#calcbody.geometry("600x700")
 
 def clickbtn(num):
     current=e.get()#nolasa skaitli
@@ -20,7 +23,40 @@ def cmdbtn(command):
     num1=int(e.get())
     e.delete(0,END)
     return 0
-e=Entry(calcbody,width=20,font=("Arial",26),bg="black",fg="lightgreen")
+
+def equals():
+    num2=int(e.get())
+    result=0
+    if mathOp=="+":
+        result=num1+num2
+    elif mathOp=="-":
+        result=num1-num2
+    elif mathOp=="*":
+        result=num1*num2
+    elif mathOp=="/":
+        result=num1/num2
+    else:
+        result=0
+    e.delete(0,END)
+    e.insert(0,str(result))
+    return 0
+
+def Clear():
+    e.delete(0,END)
+    num1=0
+    mathOp=""
+    return 0 
+    
+def kvadratsakne():
+    global operator
+    global num1
+    num1=(float(e.get()))
+    num1=sqrt(num1)
+    e.delete(0,END)
+    e.insert(0,num1)
+    return 0
+
+e=Entry(calcbody,width=26,font=("Arial",26),bg="black",fg="lightgreen")
 poga0=Button(calcbody,text="0",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(0))
 poga1=Button(calcbody,text="1",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(1))
 poga2=Button(calcbody,text="2",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(2))
@@ -31,14 +67,16 @@ poga6=Button(calcbody,text="6",bg="black",fg="lightgreen",padx="40",pady="20",co
 poga7=Button(calcbody,text="7",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(7))
 poga8=Button(calcbody,text="8",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(8))
 poga9=Button(calcbody,text="9",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(9))
-pogasum=Button(calcbody,text="=",bg="black",fg="lightgreen",padx="40",pady="20")
-pogac=Button(calcbody,text="C",bg="black",fg="lightgreen",padx="40",pady="20")
 pogaminus=Button(calcbody,text="-",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:cmdbtn("-"))
 pogadal=Button(calcbody,text="/",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:cmdbtn("/"))
 pogareiz=Button(calcbody,text="*",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:cmdbtn("*"))
 pogaplus=Button(calcbody,text="+",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:cmdbtn("+"))
+pogasum=Button(calcbody,text="=",bg="black",fg="lightgreen",padx="40",pady="20",command=equals)
+pogac=Button(calcbody,text="C",bg="black",fg="lightgreen",padx="40",pady="20",command=Clear)
+pogasqrt=Button(calcbody,text="√",bg="black",fg="lightgreen",padx="40",pady="20",command=kvadratsakne)
 
-e.grid(row=0,column=0,columnspan=5)
+pogasqrt.grid(row=1,column=5)
+e.grid(row=0,column=0,columnspan=7)
 pogaminus.grid(row=4,column=4)
 pogadal.grid(row=3,column=4)
 pogareiz.grid(row=2,column=4)
