@@ -4,11 +4,17 @@ from sqlite3 import SQLITE_TRANSACTION
 from tkinter import*
 from tkinter.tix import COLUMN
 from turtle import clear
+import tkinter.messagebox
 
 from setuptools import Command
 calcbody=Tk()
-calcbody.title("calculator")
+calcbody.title("matrix style calculator")
 #calcbody.geometry("600x700")
+
+
+calcbody.configure(background = 'black')
+calcbody.resizable(width=False, height=False)
+#nosledz kalkulatoru noteiktaja loga
 
 def clickbtn(num):
     current=e.get()#nolasa skaitli
@@ -21,13 +27,13 @@ def cmdbtn(command):
     global num1#iegaume sk un darb
     global mathOp #mat operators
     mathOp=command # darbibas
-    num1=int(e.get())
+    num1=float(e.get())
     e.delete(0,END)
     return 0
 
 def equals():
     global num2
-    num2=int(e.get())
+    num2=float(e.get())
     result=0
     if mathOp=="+":
         result=num1+num2
@@ -58,40 +64,57 @@ def sq_rt():
     e.insert(0,num1)
     return 0
 
-#def perc():
-    #global num1
-   # global num2
-   # num1=int(e.get())
-   # num2=int(e.get())
-   # result=num1*num2*0.01
-   # e.delete(0,END)
-   # e.insert(0,str(result))
-    #return 0
 
-e=Entry(calcbody,width=25,font=("Arial",26),bg="black",fg="lightgreen")
-poga0=Button(calcbody,text="0",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(0))
-poga1=Button(calcbody,text="1",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(1))
-poga2=Button(calcbody,text="2",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(2))
-poga3=Button(calcbody,text="3",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(3))
-poga4=Button(calcbody,text="4",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(4))
-poga5=Button(calcbody,text="5",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(5))
-poga6=Button(calcbody,text="6",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(6))
-poga7=Button(calcbody,text="7",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(7))
-poga8=Button(calcbody,text="8",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(8))
-poga9=Button(calcbody,text="9",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(9))
-pogaminus=Button(calcbody,width=5,text="-",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:cmdbtn("-"))
-pogadal=Button(calcbody,text="/",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:cmdbtn("/"))
-pogareiz=Button(calcbody,text="*",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:cmdbtn("*"))
-pogaplus=Button(calcbody,text="+",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:cmdbtn("+"))
-pogasum=Button(calcbody,height=5,text="=",bg="black",fg="lightgreen",padx="40",pady="20",command=equals)
-pogac=Button(calcbody,text="C",bg="black",fg="lightgreen",padx="40",pady="20",command=Clear)
-pogasqrt=Button(calcbody,height=5,text="√",bg="black",fg="lightgreen",padx="40",pady="20",command=sq_rt)
-#pogaperc=Button(calcbody,text="%",bg="black",fg="lightgreen",padx="40",pady="20",command=perc)
+def perc():
+    global num2
+    num2=float(e.get())
+    result=0
+    if mathOp=="+":
+        result=num1+(num2*num1*0.01)
+    elif mathOp=="-":
+        result=num1-(num2*num1*0.01)
+    elif mathOp=="*":
+        result=num2*num1*0.01
+    elif mathOp=="/":
+        result=num1/(num2*num1*0.01)   
+    else:
+        result=0
+    e.delete(0,END)
+    e.insert(0,str(result))
+    return 0
+#veic procentu darbibu(procents ir otrais skaitlis)
 
-#pogaperc.grid(row=4,column=2)
-pogasqrt.grid(row=1,column=5,rowspan=2)
+def Dot():
+    pos = len(e.get())
+    e.insert(pos, '.')
+
+
+e=Entry(calcbody,width=25,font=("Arial",25),bg="black",fg="lightgreen")
+poga0=Button(calcbody,font=("Arial",11),text="0",bg="black",fg="lightgreen",padx="40",pady="10",command=lambda:clickbtn(0))
+poga1=Button(calcbody,font=("Arial",11),text="1",bg="black",fg="lightgreen",padx="40",pady="10",command=lambda:clickbtn(1))
+poga2=Button(calcbody,font=("Arial",11),text="2",bg="black",fg="lightgreen",padx="40",pady="10",command=lambda:clickbtn(2))
+poga3=Button(calcbody,font=("Arial",11),text="3",bg="black",fg="lightgreen",padx="40",pady="10",command=lambda:clickbtn(3))
+poga4=Button(calcbody,font=("Arial",11),text="4",bg="black",fg="lightgreen",padx="40",pady="10",command=lambda:clickbtn(4))
+poga5=Button(calcbody,font=("Arial",11),text="5",bg="black",fg="lightgreen",padx="40",pady="10",command=lambda:clickbtn(5))
+poga6=Button(calcbody,font=("Arial",11),text="6",bg="black",fg="lightgreen",padx="40",pady="10",command=lambda:clickbtn(6))
+poga7=Button(calcbody,font=("Arial",11),text="7",bg="black",fg="lightgreen",padx="40",pady="10",command=lambda:clickbtn(7))
+poga8=Button(calcbody,font=("Arial",11),text="8",bg="black",fg="lightgreen",padx="40",pady="10",command=lambda:clickbtn(8))
+poga9=Button(calcbody,font=("Arial",11),text="9",bg="black",fg="lightgreen",padx="40",pady="10",command=lambda:clickbtn(9))
+pogaminus=Button(calcbody,font=("Arial",11),text="-",bg="black",fg="lightgreen",padx="40",pady="10",command=lambda:cmdbtn("-"))
+pogadal=Button(calcbody,font=("Arial",11),text="/",bg="black",fg="lightgreen",padx="40",pady="10",command=lambda:cmdbtn("/"))
+pogareiz=Button(calcbody,font=("Arial",11),text="*",bg="black",fg="lightgreen",padx="40",pady="10",command=lambda:cmdbtn("*"))
+pogaplus=Button(calcbody,font=("Arial",11),text="+",bg="black",fg="lightgreen",padx="40",pady="10",command=lambda:cmdbtn("+"))
+pogasum=Button(calcbody,font=("Arial",11),height=4,text="=",bg="black",fg="lightgreen",padx="40",pady="10",command=equals)
+pogac=Button(calcbody,font=("Arial",11),text="C",bg="black",fg="lightgreen",padx="40",pady="10",command=Clear)
+pogasqrt=Button(calcbody,font=("Arial",11),text="√",bg="black",fg="lightgreen",padx="40",pady="10",command=sq_rt)
+pogaperc=Button(calcbody,font=("Arial",11),text="%",bg="black",fg="lightgreen",padx="40",pady="10",command=perc)
+pogadot=Button(calcbody,font=("Arial",11),text=".",bg="black",fg="lightgreen",padx="40",pady="10",command=Dot)
+
+pogaperc.grid(row=4,column=2)
+pogasqrt.grid(row=1,column=5)
+pogadot.grid(row=2,column=5)
 e.grid(row=0,column=0,columnspan=7)
-pogaminus.grid(row=4,column=2,columnspan=2)
+pogaminus.grid(row=4,column=3,columnspan=2)
 pogadal.grid(row=3,column=4)
 pogareiz.grid(row=2,column=4)
 pogaplus.grid(row=1,column=4)
@@ -108,3 +131,5 @@ poga2.grid(row=3,column=1)
 poga3.grid(row=3,column=2)
 poga0.grid(row=4,column=1)
 calcbody.mainloop()
+
+
