@@ -1,5 +1,6 @@
 from cmath import sqrt
 from glob import glob
+from sqlite3 import SQLITE_TRANSACTION
 from tkinter import*
 from tkinter.tix import COLUMN
 from turtle import clear
@@ -25,6 +26,7 @@ def cmdbtn(command):
     return 0
 
 def equals():
+    global num2
     num2=int(e.get())
     result=0
     if mathOp=="+":
@@ -47,7 +49,7 @@ def Clear():
     mathOp=""
     return 0 
     
-def kvadratsakne():
+def sq_rt():
     global operator
     global num1
     num1=(float(e.get()))
@@ -56,7 +58,17 @@ def kvadratsakne():
     e.insert(0,num1)
     return 0
 
-e=Entry(calcbody,width=26,font=("Arial",26),bg="black",fg="lightgreen")
+#def perc():
+    #global num1
+   # global num2
+   # num1=int(e.get())
+   # num2=int(e.get())
+   # result=num1*num2*0.01
+   # e.delete(0,END)
+   # e.insert(0,str(result))
+    #return 0
+
+e=Entry(calcbody,width=25,font=("Arial",26),bg="black",fg="lightgreen")
 poga0=Button(calcbody,text="0",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(0))
 poga1=Button(calcbody,text="1",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(1))
 poga2=Button(calcbody,text="2",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(2))
@@ -67,22 +79,24 @@ poga6=Button(calcbody,text="6",bg="black",fg="lightgreen",padx="40",pady="20",co
 poga7=Button(calcbody,text="7",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(7))
 poga8=Button(calcbody,text="8",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(8))
 poga9=Button(calcbody,text="9",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:clickbtn(9))
-pogaminus=Button(calcbody,text="-",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:cmdbtn("-"))
+pogaminus=Button(calcbody,width=5,text="-",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:cmdbtn("-"))
 pogadal=Button(calcbody,text="/",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:cmdbtn("/"))
 pogareiz=Button(calcbody,text="*",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:cmdbtn("*"))
 pogaplus=Button(calcbody,text="+",bg="black",fg="lightgreen",padx="40",pady="20",command=lambda:cmdbtn("+"))
-pogasum=Button(calcbody,text="=",bg="black",fg="lightgreen",padx="40",pady="20",command=equals)
+pogasum=Button(calcbody,height=5,text="=",bg="black",fg="lightgreen",padx="40",pady="20",command=equals)
 pogac=Button(calcbody,text="C",bg="black",fg="lightgreen",padx="40",pady="20",command=Clear)
-pogasqrt=Button(calcbody,text="√",bg="black",fg="lightgreen",padx="40",pady="20",command=kvadratsakne)
+pogasqrt=Button(calcbody,height=5,text="√",bg="black",fg="lightgreen",padx="40",pady="20",command=sq_rt)
+#pogaperc=Button(calcbody,text="%",bg="black",fg="lightgreen",padx="40",pady="20",command=perc)
 
-pogasqrt.grid(row=1,column=5)
+#pogaperc.grid(row=4,column=2)
+pogasqrt.grid(row=1,column=5,rowspan=2)
 e.grid(row=0,column=0,columnspan=7)
-pogaminus.grid(row=4,column=4)
+pogaminus.grid(row=4,column=2,columnspan=2)
 pogadal.grid(row=3,column=4)
 pogareiz.grid(row=2,column=4)
 pogaplus.grid(row=1,column=4)
 pogac.grid(row=4,column=0)
-pogasum.grid(row=4,column=2)
+pogasum.grid(row=3,column=5,rowspan=2)
 poga7.grid(row=1,column=0)
 poga8.grid(row=1,column=1)
 poga9.grid(row=1,column=2) 
